@@ -9,12 +9,6 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["AuthorizationMicroService/AuthorizationMicroService.csproj", "AuthorizationMicroService/"]
 RUN dotnet restore "AuthorizationMicroService/AuthorizationMicroService.csproj"
-COPY . .
-WORKDIR "/src/AuthorizationMicroService"
-RUN dotnet build "AuthorizationMicroService.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "AuthorizationMicroService.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
